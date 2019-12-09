@@ -12,3 +12,9 @@ faces
 |  |- image2
 |  |- image3
 ```
+
+How to generate image source file
+
+```bash
+./generate_dataset.py --name person1
+```
