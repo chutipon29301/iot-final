@@ -9,6 +9,6 @@ import { CardService } from './card.service';
     },
 })
 @Controller('card')
-export class CardController implements CrudController<Card>{
+export class CardController implements CrudController<Card> {
     constructor(public service: CardService) { }
 }
