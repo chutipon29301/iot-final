@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Entity, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Entity, Column, OneToMany } from 'typeorm';
+import Access from './access.entity';
 
 @Entity()
 export default class Card {
@@ -7,4 +8,7 @@ export default class Card {
 
     @Column()
     cardNumber: string;
+
+    @OneToMany(_ => Access, access => access.card)
+    accesses: Access[];
 }
