@@ -15,12 +15,18 @@ export class AccessService extends TypeOrmCrudService<Access> {
         private readonly cardService: CardService,
     ) {
         super(accessRepository);
-        this.microgearService.cardId.subscribe({
+        microgearService.cardId.subscribe({
             next: async (cardNumber: string) => {
                 const card = await cardService.findOneOrCreate(cardNumber);
                 const access = new Access();
                 access.card = card;
-                await this.accessRepository.save(access);
+                if(card.cardOwner) {
+                    microgearService.changeDoorLock(false);
+                    setTimeout(() => {
+                        microgearService.changeDoorLock(true);
+                    }, 3000);
+                }
+                await accessRepository.save(access);
             },
         });
     }

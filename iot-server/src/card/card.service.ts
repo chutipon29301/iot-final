@@ -12,7 +12,7 @@ export class CardService extends TypeOrmCrudService<Card> {
     }
 
     public async findOneOrCreate(cardNumber: string): Promise<Card> {
-        const card = await this.cardRepository.findOne({ cardNumber });
+        const card = await this.cardRepository.findOne({ cardNumber }, { relations: ['cardOwner'] });
         if (card) {
             return card;
         } else {
