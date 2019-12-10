@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum MicrogearTopic {
     RFID_UUID = '/cardReader/readResult',
+    DOOR_LOCK = '/lock/status',
 }
 
 @Injectable()
@@ -13,6 +14,7 @@ export class MicrogearService {
     private microgear: any;
 
     private scanCardId: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    private doorLock: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     constructor(private readonly configService: ConfigService) {
 
@@ -28,6 +30,10 @@ export class MicrogearService {
                     console.log(body.toString());
                     this.scanCardId.next(body.toString());
                     break;
+                case `/IotFinalProject${MicrogearTopic.DOOR_LOCK}`:
+                    console.log(body.toString());
+                    this.doorLock.next(body.toString() === 'true');
+                    break;
                 default:
                     break;
             }
@@ -37,6 +43,7 @@ export class MicrogearService {
 
         this.microgear.on('connected', () => {
             this.microgear.subscribe(MicrogearTopic.RFID_UUID);
+            this.microgear.subscribe(MicrogearTopic.DOOR_LOCK);
         });
     }
 
@@ -46,5 +53,9 @@ export class MicrogearService {
 
     public sendCardResult(cardNumber: string) {
         this.microgear.publish(MicrogearTopic.RFID_UUID, cardNumber);
+    }
+
+    public changeDoorLock(isLock: boolean) {
+        this.microgear.publish(MicrogearTopic.DOOR_LOCK, `${isLock}`);
     }
 }

@@ -28,4 +28,12 @@ export class AccessService extends TypeOrmCrudService<Access> {
     public sendScanResult(cardNumber: string) {
         this.microgearService.sendCardResult(cardNumber);
     }
+
+    public lock() {
+        this.microgearService.changeDoorLock(true);
+    }
+
+    public unlock() {
+        this.microgearService.changeDoorLock(false);
+    }
 }

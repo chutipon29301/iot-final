@@ -16,4 +16,14 @@ export class AccessController implements CrudController<Access> {
     public async scanCard(@Param('cardNumber') cardNumber: string) {
         this.service.sendScanResult(cardNumber);
     }
+
+    @Get('lock')
+    public async lock() {
+        this.service.lock();
+    }
+
+    @Get('unlock')
+    public async unlock() {
+        this.service.unlock();
+    }
 }
