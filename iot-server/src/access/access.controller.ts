@@ -26,4 +26,9 @@ export class AccessController implements CrudController<Access> {
     public async unlock() {
         this.service.unlock();
     }
+
+    @Get('unlockByFace')
+    public async unlockByFace() {
+        this.service.unlockByFace();
+    }
 }

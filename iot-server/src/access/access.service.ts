@@ -20,7 +20,7 @@ export class AccessService extends TypeOrmCrudService<Access> {
                 const card = await cardService.findOneOrCreate(cardNumber);
                 const access = new Access();
                 access.card = card;
-                if(card.cardOwner) {
+                if(card.cardOwner && microgearService.doorLock.value) {
                     microgearService.changeDoorLock(false);
                     setTimeout(() => {
                         microgearService.changeDoorLock(true);
@@ -41,5 +41,14 @@ export class AccessService extends TypeOrmCrudService<Access> {
 
     public unlock() {
         this.microgearService.changeDoorLock(false);
+    }
+
+    public unlockByFace() {
+        if(this.microgearService.doorLock.value) {
+            this.microgearService.changeDoorLock(false);
+            setTimeout(() => {
+                this.microgearService.changeDoorLock(true);
+            }, 3000);
+        }
     }
 }
