@@ -7,7 +7,7 @@ export default class Access {
     id: number;
 
     @Column({
-        default: new Date(),
+        default: () => 'CURRENT_TIMESTAMP',
     })
     accessTime: Date;
 
