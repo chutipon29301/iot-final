@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import Card from './card.entity';
 
 @Entity()
 export default class User {
@@ -8,4 +9,6 @@ export default class User {
     @Column()
     name: string;
 
+    @ManyToOne(_ => Card, card => card.cardOwner)
+    cards: Card[];
 }

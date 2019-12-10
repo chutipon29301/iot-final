@@ -13,4 +13,5 @@ export default class Access {
 
     @ManyToOne(_ => Card, card => card.accesses)
     card: Card;
+
 }
