@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { Crud, CrudController } from '@nestjsx/crud';
 import Access from '../entity/access.entity';
 import { AccessService } from './access.service';
@@ -11,4 +11,9 @@ import { AccessService } from './access.service';
 @Controller('access')
 export class AccessController implements CrudController<Access> {
     constructor(public service: AccessService) { }
+
+    @Get('scan/:cardNumber')
+    public async scanCard(@Param('cardNumber') cardNumber: string) {
+        this.service.sendScanResult(cardNumber);
+    }
 }

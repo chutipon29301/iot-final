@@ -43,4 +43,8 @@ export class MicrogearService {
     public get cardId(): Observable<string> {
         return this.scanCardId.asObservable();
     }
+
+    public sendCardResult(cardNumber: string) {
+        this.microgear.publish(MicrogearTopic.RFID_UUID, cardNumber);
+    }
 }
