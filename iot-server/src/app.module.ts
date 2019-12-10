@@ -7,6 +7,7 @@ import { ConfigService } from './config/config.service';
 import { UserModule } from './user/user.module';
 import { AccessModule } from './access/access.module';
 import { CardModule } from './card/card.module';
+import { MicrogearModule } from './microgear/microgear.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CardModule } from './card/card.module';
     UserModule,
     AccessModule,
     CardModule,
+    MicrogearModule,
   ],
   controllers: [AppController],
   providers: [AppService],
