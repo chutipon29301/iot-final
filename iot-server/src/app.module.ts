@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { UserModule } from './user/user.module';
 import { AccessModule } from './access/access.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AccessModule } from './access/access.module';
     ConfigModule,
     UserModule,
     AccessModule,
+    CardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
