@@ -8,6 +8,4 @@ export default class User {
     @Column()
     name: string;
 
-    @Column()
-    cardId: string[];
 }
