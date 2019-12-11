@@ -5,7 +5,7 @@ import numpy as np
 from imutils.video import VideoStream
 import requests
 
-BASE_URL = 'http://192.168.1.43:3000'
+BASE_URL = 'http://localhost:3000'
 
 face_dir = 'faces'
 
@@ -23,7 +23,6 @@ for face in known_faces_dir:
             known_face_encodings.append(face_recognition.face_encodings(person_image)[0])
             known_face_names.append(face)
 
-# video_capture = cv2.VideoCapture(0)
 video_capture  = VideoStream(src=0).start()
 
 # Initialize some variables
@@ -35,6 +34,8 @@ process_this_frame = True
 while True:
     # Grab a single frame of video
     frame = video_capture.read()
+    if frame is None:
+        continue
 
     # Resize frame of video to 1/4 size for faster face recognition processing
     small_frame = cv2.resize(frame, (0, 0), fx=0.2, fy=0.2)
@@ -59,8 +60,7 @@ while True:
             best_match_index = np.argmin(face_distances)
             if matches[best_match_index]:
                 name = known_face_names[best_match_index]
-                print('Matches')
-                requests.get(url = BASE_URL + '/unlockByFace')
+                requests.get(url = BASE_URL + '/access/unlockByFace')
 
             face_names.append(name)
 

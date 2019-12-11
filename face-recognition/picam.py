@@ -3,6 +3,9 @@ import face_recognition
 import cv2
 import numpy as np
 from imutils.video import VideoStream
+import requests
+
+BASE_URL = 'http://192.168.43.169:3000'
 
 face_dir = 'faces'
 
@@ -58,6 +61,7 @@ while True:
             best_match_index = np.argmin(face_distances)
             if matches[best_match_index]:
                 name = known_face_names[best_match_index]
+                requests.get(url = BASE_URL + '/access/unlockByFace')
 
             face_names.append(name)
 
